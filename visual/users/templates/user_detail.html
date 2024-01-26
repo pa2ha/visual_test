@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Detail</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Подробнее о пользователе {{ user.name}} </h1>
+        <p><strong>Имя:</strong> {{ user.name }}</p>
+        <p><strong>Эл.почта:</strong> {{ user.email }}</p>
+        <p><strong>Дата регистрации:</strong> {{ user.registration_date|date:"Y-m-d" }}</p>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'user_list' %}" class="btn btn-primary">К списку пользователей</a>
+            </div>
+            <div class="col-md-6 text-right">
+                <form action="{% url 'user_delete' user.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{% url 'user_list' %}">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
