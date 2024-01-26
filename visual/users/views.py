@@ -49,4 +49,3 @@ def user_delete(request, pk):
     user.delete()
     messages.success(request, 'Пользователь успешно удален!')
     return redirect('user_list')
-
