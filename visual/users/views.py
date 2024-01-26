@@ -46,9 +46,7 @@ def user_create(request):
 
 def user_delete(request, pk):
     user = get_object_or_404(CustomUser, pk=pk)
-    if request.method == 'POST':
-        user.delete()
-        messages.success(request, 'Пользователь успешно удален!')
-        return redirect('user_list')
+    user.delete()
+    messages.success(request, 'Пользователь успешно удален!')
+    return redirect('user_list')
 
-    return HttpResponseNotAllowed(['POST'])
