@@ -20,27 +20,27 @@ def user_list(request):
     if request.method == 'GET':
         users = CustomUser.objects.all()
         return render(request, 'user_list.html', {'users': users})
-    else:
-        return HttpResponseNotAllowed(['GET'])
+
+    return HttpResponseNotAllowed(['GET'])
 
 
 def user_detail(request, pk):
     if request.method == 'GET':
         user = get_object_or_404(CustomUser, pk=pk)
         return render(request, 'user_detail.html', {'user': user})
-    else:
-        return HttpResponseNotAllowed(['GET'])
+
+    return HttpResponseNotAllowed(['GET'])
 
 
 def user_create(request):
+    form = CustomUserForm
     if request.method == 'POST':
         form = CustomUserForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Пользователь успешно создан!')
             return redirect('user_list')
-    else:
-        return HttpResponseNotAllowed(['POST'])
+
     return render(request, 'user_form.html', {'form': form})
 
 
@@ -50,5 +50,5 @@ def user_delete(request, pk):
         user.delete()
         messages.success(request, 'Пользователь успешно удален!')
         return redirect('user_list')
-    else:
-        return HttpResponseNotAllowed(['POST'])
+
+    return HttpResponseNotAllowed(['POST'])
